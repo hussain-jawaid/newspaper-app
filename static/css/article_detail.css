@@ -1,0 +1,16 @@
+.icon-sm {
+  font-size: 1.2rem;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .icon-sm {
+  transform: translateX(-2px);
+}
+
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}

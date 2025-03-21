@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Articles{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/article_list.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for article in article_list %}
+        <div class="col">
+            <div class="card h-100 shadow-sm rounded-3 border-0">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h2 class="h5 mb-1">
+                        <a class="text-dark text-decoration-none hover-primary" href="{{ article.get_absolute_url }}">
+                            {{ article.title }}
+                        </a>
+                    </h2>
+                    <div class="d-flex align-items-center text-muted small">
+                        <span class="material-symbols-outlined me-1 icon-sm">person</span>
+                        <span class="me-2"> {{ article.author }}</span>
+                        <span class="dot-separator"></span>
+                        <span class="ms-2">{{ article.date|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+
+                <div class="card-body pt-1">
+                    <p class="card-text text-muted mb-3">
+                        {{ article.body|truncatechars:100 }}
+                        {% if article.body|length > 200 %}
+                        <a class="btn btn-link text-decoration-none p-0" href="{{ article.get_absolute_url }}">
+                            <small>Read more</small>
+                        </a>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="card-footer bg-transparent border-0 pt-0">
+                    {% if request.user == article.author %}
+                    <div class="d-flex gap-3 small">
+                        <a href="{% url 'article_edit' article.pk %}" class="text-decoration-none text-primary-hover">
+                            Edit
+                        </a>
+                        <a href="{% url 'article_delete' article.pk %}" class="text-decoration-none text-danger-hover">
+                            Delete
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="text-muted d-flex align-items-center small">
+                        <span class="material-symbols-outlined me-1 icon-sm">info</span>
+                        <span>Only the author can modify this article</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

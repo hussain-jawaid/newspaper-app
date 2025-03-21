@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="p-4 p-md-5 mb-4 mt-3 rounded-3 bg-primary text-white">
+    <div class="container-fluid py-4">
+        <h1 class="display-4 fw-bold mb-3 mb-md-4">Newspaper app</h1>
+        <p class="lead mb-4">Your ultimate platform for creating, managing, and sharing news articles effortlessly. Stay
+            informed with the latest stories across various categories, including politics, technology, business,
+            entertainment, and more.</p>
+        {% if user.is_authenticated %}
+        <a class="btn btn-light btn-lg" href="{% url 'article_list' %}">Browse Articles</a>
+        <a class="btn btn-outline-light btn-lg ms-2" href="{% url 'article_new' %}">Create Article</a>
+        {% else %}
+        <a class="btn btn-light btn-lg" href="{% url 'signup' %}">Get Started</a>
+        <a class="btn btn-outline-light btn-lg ms-2" href="{% url 'login' %}">Sign In</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
